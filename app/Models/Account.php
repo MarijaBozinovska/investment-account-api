@@ -13,6 +13,9 @@ class Account extends Model
         'currency',
     ];
 
+    /**
+     * @return BelongsTo<Client, Account>
+     */
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
