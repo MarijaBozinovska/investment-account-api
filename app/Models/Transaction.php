@@ -16,6 +16,9 @@ class Transaction extends Model
         'price',
     ];
 
+    /**
+     * @return BelongsTo<Account, self>
+     */
     public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class);

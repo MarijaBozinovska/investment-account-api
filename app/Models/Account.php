@@ -13,11 +13,17 @@ class Account extends Model
         'currency',
     ];
 
+    /**
+     * @return BelongsTo<Client, self>
+     */
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
     }
 
+    /**
+     * @return HasMany<Transaction, self>
+     */
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);

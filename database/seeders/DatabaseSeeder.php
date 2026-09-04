@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Account;
 use App\Models\Client;
 use App\Services\TransactionService;
 use Illuminate\Database\Seeder;
@@ -23,19 +24,22 @@ class DatabaseSeeder extends Seeder
             'currency' => 'EUR',
         ]);
 
-        $transactionService->createTransaction($ana->account, [
+        /** @var Account $anaAccount */
+        $anaAccount = $ana->account;
+
+        $transactionService->createTransaction($anaAccount, [
             'type' => 'deposit',
             'amount' => 1000,
         ]);
 
-        $transactionService->createTransaction($ana->account, [
+        $transactionService->createTransaction($anaAccount, [
             'type' => 'buy',
             'instrument' => 'AAPL',
             'quantity' => 5,
             'price' => 100,
         ]);
 
-        $transactionService->createTransaction($ana->account, [
+        $transactionService->createTransaction($anaAccount, [
             'type' => 'sell',
             'instrument' => 'AAPL',
             'quantity' => 3,
@@ -50,12 +54,15 @@ class DatabaseSeeder extends Seeder
             'currency' => 'USD',
         ]);
 
-        $transactionService->createTransaction($marko->account, [
+        /** @var Account $markoAccount */
+        $markoAccount = $marko->account;
+
+        $transactionService->createTransaction($markoAccount, [
             'type' => 'deposit',
             'amount' => 2000,
         ]);
 
-        $transactionService->createTransaction($marko->account, [
+        $transactionService->createTransaction($markoAccount, [
             'type' => 'buy',
             'instrument' => 'MSFT',
             'quantity' => 10,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransactionRequest;
+use App\Models\Account;
 use App\Models\Client;
 use App\Services\TransactionService;
 use Illuminate\Http\JsonResponse;
@@ -14,8 +15,11 @@ class TransactionController extends Controller
         Client $client,
         TransactionService $transactionService
     ): JsonResponse {
+        /** @var Account $account */
+        $account = $client->account;
+
         $transaction = $transactionService->createTransaction(
-            $client->account,
+            $account,
             $request->validated()
         );
 
@@ -24,7 +28,10 @@ class TransactionController extends Controller
 
     public function index(Client $client): JsonResponse
     {
-        $transactions = $client->account
+        /** @var Account $account */
+        $account = $client->account;
+
+        $transactions = $account
             ->transactions()
             ->latest()
             ->get();
@@ -36,10 +43,13 @@ class TransactionController extends Controller
         Client $client,
         TransactionService $transactionService
     ): JsonResponse {
-        $balance = $transactionService->getCashBalance($client->account);
+        /** @var Account $account */
+        $account = $client->account;
+
+        $balance = $transactionService->getCashBalance($account);
 
         return response()->json([
-            'currency' => $client->account->currency,
+            'currency' => $account->currency,
             'balance' => $balance,
         ]);
     }
@@ -48,7 +58,10 @@ class TransactionController extends Controller
         Client $client,
         TransactionService $transactionService
     ): JsonResponse {
-        $holdings = $transactionService->getHoldings($client->account);
+        /** @var Account $account */
+        $account = $client->account;
+
+        $holdings = $transactionService->getHoldings($account);
 
         return response()->json([
             'holdings' => $holdings,
