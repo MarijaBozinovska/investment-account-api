@@ -11,9 +11,6 @@ class Client extends Model
         'name',
     ];
 
-    /**
-     * @return HasOne<Account, self>
-     */
     public function account(): HasOne
     {
         return $this->hasOne(Account::class);

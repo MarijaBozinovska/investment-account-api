@@ -4,9 +4,9 @@ Laravel backend API for managing investment accounts, cash balances, holdings, a
 
 ## Requirements
 
-- PHP 8.2+
-- Composer
-- SQLite
+* PHP 8.2+
+* Composer
+* SQLite
 
 ## Local Setup
 
@@ -235,10 +235,10 @@ Example response:
 
 Cash balance is derived from the transaction history:
 
-- deposits increase cash
-- withdrawals decrease cash
-- buys decrease cash
-- sells increase cash
+* deposits increase cash
+* withdrawals decrease cash
+* buys decrease cash
+* sells increase cash
 
 ### Get holdings
 
@@ -270,9 +270,9 @@ The API validates all incoming transaction data.
 
 The following fields are required:
 
-- `instrument`
-- `quantity`
-- `price`
+* `instrument`
+* `quantity`
+* `price`
 
 `quantity` must be a positive whole number.
 
@@ -280,10 +280,10 @@ The following fields are required:
 
 The transaction type must be one of:
 
-- `deposit`
-- `withdrawal`
-- `buy`
-- `sell`
+* `deposit`
+* `withdrawal`
+* `buy`
+* `sell`
 
 Invalid input returns HTTP `422` with validation errors.
 
@@ -291,19 +291,19 @@ Invalid input returns HTTP `422` with validation errors.
 
 ## Business Rules
 
-- A client has one account and one currency.
-- Transactions belong to a client's account.
-- Clients are isolated from each other.
-- Cash can never become negative.
-- A client cannot withdraw more cash than available.
-- A client cannot buy more than the available cash allows.
-- A client cannot sell more units than currently owned.
-- Buy and sell amounts are calculated from quantity and price.
-- Sell price can be different from the original purchase price.
-- Transactions are append-only.
-- Invalid operations are rejected without creating a transaction.
-- No external price source is used; prices are supplied with each transaction.
-- Instrument names/tickers are accepted as supplied; there is no predefined instrument list.
+* A client has one account and one currency.
+* Transactions belong to a client's account.
+* Clients are isolated from each other.
+* Cash can never become negative.
+* A client cannot withdraw more cash than available.
+* A client cannot buy more than the available cash allows.
+* A client cannot sell more units than currently owned.
+* Buy and sell amounts are calculated from quantity and price.
+* Sell price can be different from the original purchase price.
+* Transactions are append-only.
+* Invalid operations are rejected without creating a transaction.
+* No external price source is used; prices are supplied with each transaction.
+* Instrument names/tickers are accepted as supplied; there is no predefined instrument list.
 
 ---
 
@@ -317,16 +317,16 @@ php artisan test
 
 The tests cover:
 
-- deposits
-- insufficient withdrawals
-- purchases
-- purchases with insufficient cash
-- sales at a different price
-- overselling
-- balance calculation
-- holdings calculation
-- client isolation
-- input validation
+* deposits
+* insufficient withdrawals
+* purchases
+* purchases with insufficient cash
+* sales at a different price
+* overselling
+* balance calculation
+* holdings calculation
+* client isolation
+* input validation
 
 ---
 
