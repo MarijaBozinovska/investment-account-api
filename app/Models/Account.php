@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Account extends Model
 {
+    protected $fillable = [
+        'client_id',
+        'currency',
+    ];
+
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);

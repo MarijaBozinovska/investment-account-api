@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
+    protected $fillable = [
+        'account_id',
+        'type',
+        'amount',
+        'instrument',
+        'quantity',
+        'price',
+    ];
+
     public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class);
