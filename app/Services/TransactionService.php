@@ -26,6 +26,9 @@ class TransactionService
             ->value('balance');
     }
 
+    /**
+     * @return array<string, int>
+     */
     public function getHoldings(Account $account): array
     {
         return $account->transactions()
@@ -53,6 +56,9 @@ class TransactionService
             ->toArray();
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function createTransaction(Account $account, array $data): Transaction
     {
         return DB::transaction(function () use ($account, $data) {
@@ -68,17 +74,26 @@ class TransactionService
         });
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function createDeposit(Account $account, array $data): Transaction
     {
-        return $account->transactions()->create([
+        /** @var Transaction $transaction */
+        $transaction = $account->transactions()->create([
             'type' => 'deposit',
             'amount' => $data['amount'],
             'instrument' => null,
             'quantity' => null,
             'price' => null,
         ]);
+
+        return $transaction;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function createWithdrawal(Account $account, array $data): Transaction
     {
         $amount = (float) $data['amount'];
@@ -89,15 +104,21 @@ class TransactionService
             );
         }
 
-        return $account->transactions()->create([
+        /** @var Transaction $transaction */
+        $transaction = $account->transactions()->create([
             'type' => 'withdrawal',
             'amount' => $amount,
             'instrument' => null,
             'quantity' => null,
             'price' => null,
         ]);
+
+        return $transaction;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function createBuy(Account $account, array $data): Transaction
     {
         $quantity = (int) $data['quantity'];
@@ -110,15 +131,21 @@ class TransactionService
             );
         }
 
-        return $account->transactions()->create([
+        /** @var Transaction $transaction */
+        $transaction = $account->transactions()->create([
             'type' => 'buy',
             'amount' => $amount,
             'instrument' => $data['instrument'],
             'quantity' => $quantity,
             'price' => $price,
         ]);
+
+        return $transaction;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function createSell(Account $account, array $data): Transaction
     {
         $instrument = $data['instrument'];
@@ -136,12 +163,15 @@ class TransactionService
 
         $amount = round($quantity * $price, 2);
 
-        return $account->transactions()->create([
+        /** @var Transaction $transaction */
+        $transaction = $account->transactions()->create([
             'type' => 'sell',
             'amount' => $amount,
             'instrument' => $instrument,
             'quantity' => $quantity,
             'price' => $price,
         ]);
+
+        return $transaction;
     }
 }

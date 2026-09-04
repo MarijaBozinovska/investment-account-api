@@ -21,6 +21,9 @@ class Account extends Model
         return $this->belongsTo(Client::class);
     }
 
+    /**
+     * @return HasMany<Transaction, Account>
+     */
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
