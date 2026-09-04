@@ -57,7 +57,7 @@ class TransactionService
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     public function createTransaction(Account $account, array $data): Transaction
     {
@@ -75,7 +75,7 @@ class TransactionService
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     private function createDeposit(Account $account, array $data): Transaction
     {
@@ -92,7 +92,7 @@ class TransactionService
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     private function createWithdrawal(Account $account, array $data): Transaction
     {
@@ -117,7 +117,7 @@ class TransactionService
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     private function createBuy(Account $account, array $data): Transaction
     {
@@ -144,7 +144,7 @@ class TransactionService
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     private function createSell(Account $account, array $data): Transaction
     {
